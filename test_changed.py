@@ -26,7 +26,7 @@ def prepare_arguments():
     parser.add_argument("-exn", "--explore_noise", choices=["Gaussian", "Process"], default="Gaussian")
     parser.add_argument("-one", "--one_action", action='store_true')
     parser.add_argument("--config-file", "--cf", default="./config/config.json",
-                        help="pointer to the configuration file of the experiment", type=str)  # 参数被储存在config.json里
+                        help="pointer to the configuration file of the experiment", type=str) 
     args = parser.parse_args()
     args.config = json.load(open(args.config_file, 'r', encoding='utf-8'))
     print(args.config)
@@ -36,7 +36,7 @@ def prepare_arguments():
         # args.config['seed'] = datetime.now().microsecond % 65536
         args.config['seed'] = 65535 # 65536 65537%65536
         args.seed = args.config['seed']
-        set_seed(args.seed)  # 定义随机种子为当前时刻毫秒
+        set_seed(args.seed)
 
     # reconfig some parameter
     # args.name = f"[Debug]gym_PPO_transformer_{args.seed}"
@@ -61,16 +61,16 @@ def prepare_arguments():
 args = prepare_arguments()
 config = args.config
 dir = "config/tppo_2.yaml"
-config_dict = utils.load_config(dir)  # TPPO参数配置
+config_dict = utils.load_config(dir)
 paras = utils.get_paras_from_dict(config_dict)
 print("local:", paras)
 # wandb.init(project="foil", config=paras, name=args.name, mode="disabled")# ("disabled" or "online")
-# paras = utils.get_paras_from_dict(wandb.config)  # 如果是disabled与上面paras一样
+# paras = utils.get_paras_from_dict(wandb.config)
 # print("finetune", paras)
-run_dir, log_dir = make_logpath('foil', paras.algo)  # 设置actor模型保存地址
+run_dir, log_dir = make_logpath('foil', paras.algo)
 
 ### start env
-num_envs = 1  # 并行运算数量
+num_envs = 1 
 env = gym.vector.make('foil-v0', num_envs=num_envs, config=paras)
 # env.reset()
 action_space, action_dim = env.single_action_space.shape[0], env.single_action_space.shape[0]  # 3,3
@@ -87,13 +87,13 @@ state_norm = Normalization((num_envs, obs_space))
 # reward_norm = RewardScaling(1, 0.99)
 ret = []
 obs = env.reset()
-# obs = state_norm(obs) if state_norm_flag else obs  # 当flag=True归一化，False则不变
-done = [False] * num_envs  # 定义done为非
+# obs = state_norm(obs) if state_norm_flag else obs  
+done = [False] * num_envs  
 epsoide_length = 0
 epsoide_num = 0
 buffer_new_data = 0
-agent = Server(**args.__dict__)  # 此处定义server时情况一下buffer
-agent._init(-1)  # 此处清空一下buffer, 这里与本地一致
+agent = Server(**args.__dict__)  
+agent._init(-1)  
 
 
 for i in tqdm(range(config['epochs'])):  # epochs=4000
@@ -116,14 +116,14 @@ for i in tqdm(range(config['epochs'])):  # epochs=4000
         reward_buffer.append(ori_reward)
         reward = ori_reward
         # save to buffer
-        # next_state = next_obs.reshape(next_obs.shape[0], 1, next_obs.shape[1])  # 从二维变成三维数组
+        # next_state = next_obs.reshape(next_obs.shape[0], 1, next_obs.shape[1])  
 
         # 将s,a存入buffer
         # agent.insert_data({'states': agent.state.cpu().detach().numpy(), 'actions': action, 'rewards': reward, 'states_next': next_state, 'dones': done})
         obs = next_obs
         Gt += ori_reward[0]
         epsoide_length += 1
-        buffer_new_data += num_envs  # buffer里存了多少size
+        buffer_new_data += num_envs  
         if buffer_new_data > paras.batch_size:
             # it is better to use data for only 1-2 times
             #agent.learn()
@@ -132,9 +132,8 @@ for i in tqdm(range(config['epochs'])):  # epochs=4000
     obs = env.reset()
     # print("Reset")
     reward_eps = np.average(reward_buffer)
-    # print(reward_eps)  # 不作为优化只是查看效果使用
     obs = state_norm(obs) if state_norm_flag else obs
-    agent._train(1000)  # 在此处往buffer存数据
+    agent._train(1000)  
     print("A time train end", i)
     # clear online buffer
     # agent.memory.buffer_dict_clear()
