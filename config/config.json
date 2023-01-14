@@ -21,7 +21,7 @@
     "batch_size": 128,
     "eval_episodes": 32,
     "eval_threads": 32,
-    "epochs": 4000,
+    "epochs": 3000,
     "lr_actor": 6e-4,
     "lr_critic": 3e-3,
     "critic_loss_coff": 2,
