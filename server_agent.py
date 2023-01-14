@@ -47,8 +47,8 @@ class Server():
             self._stamp("Using No Filter")
         else:
             raise NotImplementedError
-        self.save_model_dir = "save_9"
-        self.save_data_dir = "save_data_9"
+        self.save_model_dir = "save_127"
+        self.save_data_dir = "save_data_127"
         self.save_eval_dir = "save_eval_3"
 
 
@@ -68,14 +68,21 @@ class Server():
 
     def _reward_func(self, this_state, action, next_state):
         # reward = -np.sign(next_state[0,31]) * (next_state[0,31])**2
-        
-        reward = -np.sign(next_state[0,63]) * pow(abs(next_state[0,63]),0.5) - 0.1*(next_state[0,62])**2
+        # reward = (np.sign(next_state[0,62]) * pow(abs(next_state[0,62]),0.5))
+        # reward = np.sign(next_state[0,62]) * (next_state[0,62])**2
+        # reward = -next_state[0,62]
+        # reward = -np.sign(next_state[0,63]) * pow(abs(next_state[0,63]),0.5) - 0.1*(next_state[0,62])**2
+        # reward = -np.sign(next_state[0,63]) * pow(abs(next_state[0,63]),0.5) # save 15的reward
+        reward = -np.sign(next_state[0,63]) * pow(abs(next_state[0,63]),0.5) + np.sign(next_state[0,62]) * pow(abs(next_state[0,62]),0.5) # save 15的reward with front, 17 with top
+        # print("######################cd###########",(-np.sign(next_state[0,63]) * pow(abs(next_state[0,63]),0.5)))
+        # print("######################cl###########",(-0.1*(next_state[0,62]-2)**2))
+        # reward = -(next_state[0, 62])**2
         # print("########reward#########", reward)
         # reward = np.sign(next_state[0,31]) * next_state[0,31]**2
         # reward = -(np.sign(next_state[0, 1]) * (next_state[0, 1]) ** 2)
         # print(next_state)
         # print(next_state[0, 31])
-        # reward = -(next_state[0, 31]+6) ** 2  #first reward tried
+        # reward = -(next_state[0, 63]-1) ** 2  #first reward tried
         # reward = -(next_state[0, 31] - 5) ** 2 + 1   #second reward
         # print(reward)
         # reward = -(next_state[0, 31] - 5) ** 2 - abs(next_state[0, 31]-next_state[0, 29]) #third reward tried
@@ -159,7 +166,7 @@ class Server():
         combined_state = list(np.array(self.state_record[(self.time_step+1)*2:(self.time_step+1)*2+64], dtype=object).flatten())
 
         # print(self.time_step)
-        print(combined_state)
+        # print(combined_state)
         # combined_state.append(self.time_step)
         # print(combined_state)
         self.time_step += 1
@@ -234,7 +241,7 @@ class Server():
             [q1, q2, qloss] = self.agent.train_iter()
 
         # print(q)
-        print(len(q1))
+        # print(len(q1))
         # print(type(q1))
 
         # np.savez(self.save_data_dir + "/data_Q1_{}.npz".format(self.agent.episode_count),
@@ -274,8 +281,8 @@ class Server():
 
     def _restore(self,episode_count):
         self.agent.saver.restore(self.agent.sess, self.save_model_dir + "/{}.ckpt".format(episode_count))
-        pickle_in = open(self.save_model_dir + "/{}.pickle".format(episode_count),"rb")
-        self.agent.replay_buffer = pickle.load(pickle_in)
+        # pickle_in = open(self.save_model_dir + "/{}.pickle".format(episode_count),"rb")
+        # self.agent.replay_buffer = pickle.load(pickle_in)
         self.agent.episode_count = episode_count
         self._stamp("Restored from Episode {}!".format(episode_count))
         return True
