@@ -47,9 +47,9 @@ class Server():
             self._stamp("Using No Filter")
         else:
             raise NotImplementedError
-        self.save_model_dir = "save_127"
-        self.save_data_dir = "save_data_127"
-        self.save_eval_dir = "save_eval_3"
+        self.save_model_dir = "save"
+        self.save_data_dir = "save_data"
+        self.save_eval_dir = "save_eval"
 
 
     def _stamp(self, string):
@@ -291,14 +291,3 @@ class Server():
         self._stamp("Server Listening...")
         print(self.action_dim)
         self.server.serve_forever()
-
-#if __name__ == "__main__":
-#    parser = argparse.ArgumentParser(description="server for experiments and CFD")
-#    parser.add_argument("-env", "--environment", choices=["CFD", "Experiment"], default="Experiment")
-#    parser.add_argument("-fil", "--filter", choices=["None", "Kalman"], default="Kalman")
-#    parser.add_argument("-exn", "--explore_noise", choices=["Gaussian", "Process"], default="Gaussian")
-#    parser.add_argument("-one", "--one_action", action='store_true')
-#    args = parser.parse_args()
-
-#    myserver = Server(**args.__dict__)
-#    myserver.start_server()
