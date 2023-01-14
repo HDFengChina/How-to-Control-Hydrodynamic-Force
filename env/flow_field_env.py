@@ -50,11 +50,11 @@ class foil_env:
         self.step_counter += 1
         result_ls, ct_ls, eta_ls, cp_ls, fx_ls, dt_ls = [], [], [], [], [], []
         for i in range(self.action_interval):  # only 1
-            step_1 = float(action[0])  # /self.action_interval # since velosity # 前柱速度
-            step_2 = float(action[1])  # /self.action_interval # 下柱速度
-            step_3 = float(action[2])  # /self.action_interval # since velosity # 上柱速度
+            step_1 = float(action[0])  # /self.action_interval 
+            step_2 = float(action[1])  # /self.action_interval 
+            step_3 = float(action[2])  # /self.action_interval 
             action_json = {"v1": step_1, "v2": step_2, "v3": step_3}
-            res_str = self.proxy.connect.Step(json.dumps(action_json))  # 将action传入lilypad并返回state, reward, 将一个Python数据结构转换为JSON
+            res_str = self.proxy.connect.Step(json.dumps(action_json)) 
             [state, reward, done] = self.parseStep(res_str)
             self.reward, self.state, self.done = np.array(reward, dtype=np.float32), np.array(state, np.float32), np.array(done, np.float32)
             result_ls.append(self.reward)
@@ -75,7 +75,7 @@ class foil_env:
         self.reward, self.state, self.done = np.array(reward, dtype=np.float32), np.array(state, np.float32), np.array(done, np.float32)
         return self.state
 
-    def parseStep2(self, info):  # 对lilypad返回信息解码
+    def parseStep2(self, info): 
         all_info = json.loads(info)
         state = json.loads(all_info['state'][0])
         reward = all_info['reward']
@@ -84,7 +84,7 @@ class foil_env:
         # state_ls = list(np.nan_to_num(np.array(state_ls), nan=0))
         return state_ls, reward, done
         
-    def parseStep(self, info):  # 对lilypad返回信息解码
+    def parseStep(self, info): 
         all_info = json.loads(info)
         # print("####################info", all_info['state'])
         # try:
