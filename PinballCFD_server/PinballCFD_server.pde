@@ -73,7 +73,7 @@ void setup()
 
   try
   {
-    server = StartServer(int(args[0])); //端口号，args是什么??
+    server = StartServer(int(args[0])); 
   }
   
   catch (Exception ex)
@@ -105,26 +105,11 @@ void draw(){
       test.xi1_m = 5*test.xi1;
       test.xi2_m = 5*test.xi2;  //left is positive direction
       callLearn--;
-            
-      if(callLearn<=0){
-        callLearn = 16;
-        //Cd = Cd/callLearn*2/resolution;  // feedback the average Cd in 16 steps
-        //Cl = Cl/callLearn*2/resolution;
-        //println(Cl,Cd);
-        
-        cost = -(Cd-ref)*(Cd-ref); //
-        ave_reward += cost; //
-       
-        
-        //state_cn = multy_state(Cl, Cd);
-        //state.clear();
-        //state.add(state_cn);
-        //reward(cost);
-      } 
+      
       if(test.t>plotTime){
         picNum--;
         
-        //output1 = createWriter("saved_30/field/66/"+str(test.t)+".txt");  // read flow
+        //output1 = createWriter("saved/field/1650/"+str(test.t)+".txt");  // read flow
         //ArrayList<PVector> aimcoords = test.body.coords;  // read flow
         //PVector coordinate = test.body.xc;  // read flow
         //float py = coordinate.y+64;  // read flow
@@ -133,7 +118,7 @@ void draw(){
         
         if(picNum <= 0){
           test.display();
-          saveFrame("saved_30/"+str(simNum) + "/" +"frame-#######.png");
+          saveFrame("saved/"+str(simNum) + "/" +"frame-#######.png");
           picNum = 10;
         }
       }
