@@ -10,21 +10,21 @@ os.environ["CUDA_VISIBLE_DEVICES"]= str(1)
 
 class Agent:
     def __init__(self, state_dim, action_dim, explore_noise = "Gaussian", *args, **kwargs):
-        self.lr = 1e-4  # 学习率可以改
-        self.gamma = 0.99  # 衰减因子可以改
+        self.lr = 1e-4  
+        self.gamma = 0.99 
         self.tau = 0.005
-        self.bs = 512  # 批处理，可修改，尝试128，256
+        self.bs = 512  
         self.bfs = 500000
-        self.d = 2  # 更新两次policy更新一次target,可以改
+        self.d = 2  
         self.explore_noise = explore_noise
         self.explore_noise_size = 0.1  # or 0.01
         self.process_noise_generator = ProcessNoise(action_dim)
-        self.criticreg_noise_size = 0.2  # 随机正态分布得到噪声可修改
+        self.criticreg_noise_size = 0.2  
         self.criticreg_noise_clip = 0.5
 
         self.state_dim = state_dim
         self.action_dim = action_dim
-        self.actor_nn_dim = [256, 256, self.action_dim]  # number of cells with 2 h-layer, 可以改
+        self.actor_nn_dim = [256, 256, self.action_dim]  # number of cells with 2 h-layer
         self.critic_nn_dim = [256, 256, 1]
 
         self.Q_buffer1 = []
@@ -157,8 +157,8 @@ class Agent:
 
             self.sess.run([self.Q_op], feed_dict=feed_dict)  # Q network update
             if self.total_step_count % self.d == 0:
-                self.sess.run([self.P_op], feed_dict=feed_dict)  # 延迟更新policy
-                self.sess.run(self.T_op)  # 固定policy更新之后，更新target network
+                self.sess.run([self.P_op], feed_dict=feed_dict) 
+                self.sess.run(self.T_op) 
 
 
             q1 = list(self.sess.run([self.Q_Q_1], feed_dict=feed_dict))
