@@ -32,10 +32,11 @@ def prepare_arguments():
     print(args.config)
 
     ### set seed
-    # if args.config['seed'] == "none":
-    #     args.config['seed'] = datetime.now().microsecond % 65536
-    #     args.seed = args.config['seed']
-    # set_seed(args.seed)  # 定义随机种子为当前时刻毫秒
+    if args.config['seed'] == "none":
+        # args.config['seed'] = datetime.now().microsecond % 65536
+        args.config['seed'] = 65535 # 65536 65537%65536
+        args.seed = args.config['seed']
+        set_seed(args.seed)  # 定义随机种子为当前时刻毫秒
 
     # reconfig some parameter
     # args.name = f"[Debug]gym_PPO_transformer_{args.seed}"
@@ -106,6 +107,7 @@ for i in tqdm(range(config['epochs'])):  # epochs=4000
         
         print(obs)
         action = agent._request_stochastic_action(obs)
+        # action = agent._request_deterministic_action(obs)
         print(action)
         next_obs, ori_reward, done, info = env.step(action)
         print("Get next state", epsoide_length)
