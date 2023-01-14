@@ -1,0 +1,30 @@
+algo: sin
+envparameters:
+  action_continuous: true
+  action_space: 2
+  n_player: 1
+  obs_continuous: true
+  obs_space: 6
+  action_interval: 1
+  epochs: 1
+scenario: foil
+hyperparameters:
+  #St: 0.1
+  #AD: 0.2
+  #theta: 60
+  #Phi: 180
+  # Phi start from 180, if actual Phi is 20, then this Phi is 180+20
+#  St: 0.2
+#  AD: 0.1
+#  theta: 70
+#  Phi: 190
+#
+#  St: 0.25
+#  AD: 0.8
+#  theta: 5
+#  Phi: 280
+
+  St: 0.1
+  AD: 0.3
+  theta: 10
+  Phi: 90

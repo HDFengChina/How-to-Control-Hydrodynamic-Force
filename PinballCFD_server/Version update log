@@ -1,0 +1,13 @@
+Version Updata log:
+在流场稳定前也记录更新states
+在即将超出边界时不该变动作：
+A = A + nextactionA; // 20-300 heave limit
+    AoA = AoA + nextactionAoA; // 70 degree pitch limit
+    if (A>=250||A<=50){
+      A = A - nextactionA;
+    }
+    if (abs(AoA)>=70){
+      AoA = AoA - nextactionAoA;
+    }
+    
+先给single action和Ct设置limit，等到达稳定模式后再去除limit进行激进的探索

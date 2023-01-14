@@ -1,0 +1,23 @@
+program: run_foil_sequence.py
+method: bayes
+metric:
+  goal: maximize
+  name: "effective_avg"
+parameters:
+  theta:
+    max: 50
+    min: 0
+    distribution: uniform
+  AD:
+    max: 1
+    min: 0
+    distribution: uniform
+  Phi:
+    max: 90
+    min: 0
+    distribution: uniform
+  St:
+    max: 0.3
+    min: 0.15
+    distribution: uniform
+

@@ -1,0 +1,32 @@
+  alpha_lr:
+    max: 0.002
+    min: 0.0005
+    distribution: uniform
+  epsilon:
+    max: 1
+    min: 0.25
+    distribution: uniform
+  alpha:
+    max: 0.4
+    min: 0.1
+    distribution: uniform
+  tau:
+    max: 0.002
+    min: 0.0005
+    distribution: uniform
+  epsilon_end:
+    max: 0.1
+    min: 0.025
+    distribution: uniform
+  target_entropy_ratio:
+    max: 1.4
+    min: 0.35
+    distribution: uniform
+  target_replace:
+    max: 60
+    min: 15
+    distribution: int_uniform
+  clip_param:
+    max: 0.4
+    min: 0.1
+    distribution: uniform

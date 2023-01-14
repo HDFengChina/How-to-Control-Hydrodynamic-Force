@@ -1,0 +1,39 @@
+program: run_foil_trajactory.py
+method: bayes
+metric:
+  goal: maximize
+  name: "effective_avg"
+parameters:
+  action_interval:
+    values:
+      - 2
+      - 4
+      - 8
+      - 16
+      - 32
+    distribution: categorical
+  action_interval:
+    max: 100
+    min: 2
+    distribution: int_uniform
+  alpha_lr:
+    max: 0.002
+    min: 0.0005
+    distribution: uniform
+  target_entropy_ratio:
+    max: 1.4
+    min: 0.35
+    distribution: uniform
+  clip_param:
+    max: 0.4
+    min: 0.1
+    distribution: uniform
+  c_lr:
+    max: 0.01
+    min: 0.001
+    distribution: uniform
+  a_lr:
+    max: 0.01
+    min: 0.001
+    distribution: uniform
+

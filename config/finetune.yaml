@@ -1,0 +1,26 @@
+program: run_foil_trajactory.py
+method: bayes
+metric:
+  goal: maximize
+  name: "Gt"
+parameters:
+  buffer_capacity:
+    max: 200000
+    min: 10000
+    distribution: int_uniform
+  num_hid_layer:
+    max: 6
+    min: 2
+    distribution: int_uniform
+  hidden_size:
+    max: 256
+    min: 64
+    distribution: int_uniform
+  gamma:
+    max: 0.9999
+    min: 0.99
+    distribution: uniform
+  batch_size:
+    max: 1024
+    min: 64
+    distribution: int_uniform

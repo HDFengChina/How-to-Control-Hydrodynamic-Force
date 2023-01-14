@@ -1,0 +1,41 @@
+algo: tppo
+envparameters:
+  action_continuous: true
+  action_space: 3
+  n_player: 1
+  obs_continuous: true
+  obs_space: 2
+  action_interval: 1
+  action_max: 1
+scenario: foil
+hyperparameters:
+  batch_size: 512
+  buffer_capacity: 1000000
+  c_lr: 0.001
+  a_lr: 0.0001
+  context_len: 50
+  n_layer: 2
+  n_head: 2
+  n_embed: 32
+  gamma: 0.9
+  ppo_epoch: 10
+  ppo_clip: 0.2
+  ppo_entropy: 0.01
+  grad_norm_clip: 0.5
+  gae_lambda: 0.9
+  theta: 10
+  AD: 0.1875
+  Phi: 20
+  St: 0.08
+seedparameters:
+  seed_nn: 1
+  seed_np: 1
+  seed_random: 1
+trainingparameters:
+  evaluate_rate: 50
+  max_episodes: 300
+  render: false
+  save_interval: 100
+time_weight: 50
+y_weight: 0
+alpha_weight: 50
