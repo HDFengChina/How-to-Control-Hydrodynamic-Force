@@ -1,4 +1,3 @@
-# import tensorflow as tf
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 import numpy as np
@@ -96,7 +95,7 @@ class Agent:
         self.sess = tf.Session(config=config)
         self.sess.run(tf.global_variables_initializer())
         self.sess.run(self.T_init)
-        self.saver = tf.train.Saver(max_to_keep=2000)
+        self.saver = tf.train.Saver(max_to_keep=3000)
 
 
     def actor_nn(self, state, bound = True):
@@ -202,4 +201,3 @@ class Agent:
         self.train_count = 0
         self.episode_count += 1
         print(self.episode_count)
-
