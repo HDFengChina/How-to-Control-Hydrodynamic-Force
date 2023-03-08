@@ -14,5 +14,7 @@ Requirements and Installation:
 4. xvfb-run for Linux
 
 Implementation:
-run code and begin interaction with CFD 
+
+train DRL and begin interaction with CFD 
+
 Python test_changed.py -env CFD -fil None
