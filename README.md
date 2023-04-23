@@ -18,3 +18,5 @@ Implementation:
 train DRL and begin interaction with CFD 
 
 Python test_changed.py -env CFD -fil None
+
+Supplement: There are slight clerical errors in the publish paper as time is limited. We apologize that these errors may affect readers' understanding. Therefore, we have updated the version here to correct the errors, and if you find any other details of errors in the future, please contact us. We will be very grateful and make the necessary modifications in a timely manner.
